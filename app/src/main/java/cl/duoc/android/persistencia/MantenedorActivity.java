@@ -53,21 +53,22 @@ public class MantenedorActivity extends AppCompatActivity {
         return false;
     }
 
+    private File crearDirectorioYArchivo(File file) {
+        if (!file.getParentFile().mkdirs()) {
+            Log.e("File", "Directory not created");
+        }
+        return file;
+    }
+
     private File guardarCsvInternal(String filename) {
         File file = new File(getFilesDir(), filename);
+        crearDirectorioYArchivo(file);
         return file;
     }
 
     private File guardarCsvExternal(String filename) {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
-        if (!file.mkdirs()) {
-            Log.e("File", "Directory not created");
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        crearDirectorioYArchivo(file);
         return file;
     }
 
@@ -83,13 +84,20 @@ public class MantenedorActivity extends AppCompatActivity {
         String texto = "Hola mundo";
         FileOutputStream fos;
         try {
-            fos = openFileOutput(filename, Context.MODE_PRIVATE);
+            // para escribir en archivo interno
+            //fos = openFileOutput(filename, Context.MODE_APPEND);
+
+            // new FileOutputStream funciona con external
+            fos = new FileOutputStream(file, true);
+
             fos.write(texto.getBytes());
             fos.close();
             Toast.makeText(this, "Archivo guardado en "+file.getPath(), Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
+            Log.e("Error", "FileNotFoundException");
             e.printStackTrace();
         } catch (IOException e) {
+            Log.e("Error", "IOException");
             e.printStackTrace();
         }
     }
