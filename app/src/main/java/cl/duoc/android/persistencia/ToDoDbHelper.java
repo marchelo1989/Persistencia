@@ -25,14 +25,15 @@ public class ToDoDbHelper extends SQLiteOpenHelper {
                 "\t _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT\n" +
                 "\t, tarea TEXT NOT NULL\n" +
                 "\t, prioridad INT DEFAULT 1\n" +
-                "\t, fecha_creacion DEFAULT CURRENT_TIMESTAMP --UTC\n" +
+                "\t, fecha_creacion DEFAULT CURRENT_TIMESTAMP\n" +
                 ");";
         sqLiteDatabase.execSQL(sql);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion
+							, int newVersion) {
         // código necesario para modificar la estructura en caso
-        // que se hayan realizado modificaciones en el esqueman entre versiones
+        // que se hayan realizado modificaciones en el esquema
     }
 }

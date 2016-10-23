@@ -122,18 +122,22 @@ public class MantenedorActivity extends AppCompatActivity {
     }
 
     public void guardarTarea(View view) {
+		// Recuperación valores de controles
         String tarea = textoFromViewId(R.id.etTarea);
         SeekBar sbPrioridad = (SeekBar) findViewById(R.id.sbPrioridad);
         int prioridad = sbPrioridad.getProgress();
+        
+        // código SQLite
         ToDoDbHelper toDoDbHelper = new ToDoDbHelper(this);
         SQLiteDatabase db = toDoDbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TAREA_TEXTO, tarea);
         cv.put(TAREA_PRIORIDAD, prioridad);
+        // nombre de la taba, nullhack, valores
         db.insert(TAREA_TABLE, null, cv);
 
         // actualiza el cursor del adapter para que se
-        // vean reflejados los cambios
+        // vean reflejados los cambios en GridView
         adapter.swapCursor(getCursor(projection));
 
         // notifica la creación con un TOAST
@@ -177,20 +181,24 @@ public class MantenedorActivity extends AppCompatActivity {
     }
 
     private File guardarCsvInternal(String filename) {
+		// la alternativa a getFilesDir() es getCacheDir()
         File file = new File(getFilesDir(), filename);
         crearDirectorioYArchivo(file);
         return file;
     }
 
     private File guardarCsvExternal(String filename) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
+        File file = new File(
+			Environment.getExternalStoragePublicDirectory(
+				Environment.DIRECTORY_DOWNLOADS), filename
+			);
         crearDirectorioYArchivo(file);
         return file;
     }
 
     public void descargarCSV(View v) {
-        Toast.makeText(this, "Guardando BD a archivo CSV...", Toast.LENGTH_LONG).show();
-        // la alternativa a getFilesDir() es getCacheDir()
+        Toast.makeText(this, "Guardando BD a archivo CSV..."
+			, Toast.LENGTH_LONG).show();        
         String filename = "TODOs.csv";
 
         // Usuar cualquier alternativa - Internal o External
@@ -208,7 +216,8 @@ public class MantenedorActivity extends AppCompatActivity {
 
             fos.write(texto.getBytes());
             fos.close();
-            Toast.makeText(this, "Archivo guardado en "+file.getPath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Archivo guardado en "+file.getPath()
+				, Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             Log.e("Error", "FileNotFoundException");
             e.printStackTrace();

@@ -20,11 +20,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // checkea si las credenciales habían sido guardadas
-        // y toma las acciones pertinentes si son correctas
-        sp = getSharedPreferences( getString(R.string.archivoPreferencias), Context.MODE_PRIVATE );
-        String usuario  = sp.getString(getString(R.string.usuario), "");
-        String password = sp.getString( getString(R.string.password), "" );
+        /* 
+         Checkea si las credenciales habían sido guardadas
+         y toma las acciones pertinentes si son correctas 
+        */        
+        sp = getSharedPreferences( 
+				getString(R.string.archivoPreferencias)
+				, Context.MODE_PRIVATE 
+			);
+        // recupera el usuario, si el valor no existe 
+        // devuelve el valor por defecto ""
+        String usuario  = sp.getString(
+							getString(R.string.usuario)
+							, ""
+						);
+        String password = sp.getString( 
+							getString(R.string.password)
+							, "" 
+						);
         if(checkearCredenciales(usuario, password)){
             irActividad(MantenedorActivity.class);
         }
@@ -48,12 +61,11 @@ public class MainActivity extends AppCompatActivity {
     public void ingresar(View v) {
         String usuario = getTexto(findViewById(R.id.etEmail));
         String password = getTexto(findViewById(R.id.etPassword));
-        // verifica usuario y contraseña
-        // obviamente para simplificar el ejemplo usuario y contraseña están "hardcoded"
+        // verifica usuario y contraseña        
         if( checkearCredenciales(usuario, password) ) {
             // Veo si el usuario quiere guardar sus datos de ingreso
-            CheckBox cbRecordarPassword = (CheckBox) findViewById(R.id.cbRecordarPassword);
-            Log.v("cbRecordarPassword", cbRecordarPassword.isChecked()+"");
+            CheckBox cbRecordarPassword = 
+				(CheckBox) findViewById(R.id.cbRecordarPassword);			            
             if( cbRecordarPassword.isChecked() ){
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("usuario", usuario);
@@ -63,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
             // voy a la otra pantalla
             irActividad(MantenedorActivity.class);
         } else {
-            Toast.makeText(this, "Usuario y/o contraseña incorrectos!!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Usuario y/o contraseña incorrectos!!!"
+				, Toast.LENGTH_LONG).show();
         }
     }
 }
