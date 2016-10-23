@@ -13,18 +13,24 @@
     android:measureWithLargestChild="false">
 
 
-    <TextView
-        android:id="@+id/tvConectacoComo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="descargarCSV"
-        android:src="@mipmap/csvicon"
-        android:background="@android:color/transparent" />
+        <TextView
+            android:id="@+id/tvConectacoComo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="descargarCSV"
+            android:src="@mipmap/csvicon"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
 
 
     <TextView
@@ -34,21 +40,35 @@
 
     <EditText
         android:id="@+id/etTarea"
+        android:ems="20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prioridad" />
+        android:id="@+id/tvPrioridad"
+        android:text="Prioridad:1" />
 
-    <EditText
-        android:id="@+id/etPrioridad"
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sbPrioridad"
+        android:max="100"
+        android:progress="1"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         />
+        android:text="Guardar"
+        android:onClick="guardarTarea" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridViewTareas" />
 
 
 </LinearLayout>
