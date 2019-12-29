@@ -30,12 +30,7 @@ public class MantenedorActivity extends AppCompatActivity {
 
     private GridView gridViewTareas;
     private CursorAdapter adapter;
-    private String[] projection = {
-            TAREA_ID
-            , TAREA_TEXTO
-            , TAREA_PRIORIDAD
-            , TAREA_FECHA_CREACION
-    };
+    private String[] projection = {TAREA_ID, TAREA_TEXTO, TAREA_PRIORIDAD, TAREA_FECHA_CREACION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

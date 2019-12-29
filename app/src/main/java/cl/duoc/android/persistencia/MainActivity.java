@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean checkearCredenciales(String usuario, String password) {
         // esto debería consultar con un WS
-        return usuario.equalsIgnoreCase("juanito@gmail.com") && password.equals("1234");
+        return usuario.equalsIgnoreCase("marchelo") && password.equals("1234");
     }
 
     public void ingresar(View v) {
